@@ -1,0 +1,440 @@
+{
+  "version": "2026-09-17-v2",
+  "note": "Context Recall 评测用例（集合运算版，不依赖裁判模型）。期望粒度：(company, type) 二元组 —— 该找的资料找回来没有，在 top-k 里核对。按当前库实态设计：668 块 = overview 92 / financial 368 / stock 92 / research_report 116（含 2026-09-17 注入的 4 块量化选股模型实证，doc_type=quant_strategy_empirical，sector=量化选股模型实证，scope=industry）。A/B/C/E 计入总召回率；D 类是聚合型问题（走 structured_rank 结构化路径），单独记录不计入词法召回；H 类是反向检查（期望某公司绝不出现在结果里）。 | 2026-10-15 补 I 类 10 条库外负例（原 H 类仅 2 条有效，统计力不足）",
+  "top_k": 5,
+  "cases": [
+    {
+      "id": "A01",
+      "category": "A_公司档案",
+      "query": "贵州茅台是做什么的？",
+      "expect_any": [
+        {
+          "company": "贵州茅台",
+          "type": "overview"
+        }
+      ]
+    },
+    {
+      "id": "A02",
+      "category": "A_公司档案",
+      "query": "招商银行的公司简介",
+      "expect_any": [
+        {
+          "company": "招商银行",
+          "type": "overview"
+        }
+      ]
+    },
+    {
+      "id": "A03",
+      "category": "A_公司档案",
+      "query": "中国平安属于什么行业？",
+      "expect_any": [
+        {
+          "company": "中国平安",
+          "type": "overview"
+        }
+      ]
+    },
+    {
+      "id": "A04",
+      "category": "A_公司档案",
+      "query": "宁王的主营业务是什么？",
+      "expect_any": [
+        {
+          "company": "宁德时代",
+          "type": "overview"
+        }
+      ],
+      "note": "俗名别名链路"
+    },
+    {
+      "id": "A05",
+      "category": "A_公司档案",
+      "query": "茅台的市值是多少？",
+      "expect_any": [
+        {
+          "company": "贵州茅台",
+          "type": "overview"
+        }
+      ],
+      "note": "profile 意图 + 别名"
+    },
+    {
+      "id": "A06",
+      "category": "A_公司档案",
+      "query": "东方财富是哪个行业的公司？",
+      "expect_any": [
+        {
+          "company": "东方财富",
+          "type": "overview"
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "category": "B_财务明细",
+      "query": "宁德时代的营收是多少？",
+      "expect_any": [
+        {
+          "company": "宁德时代",
+          "type": "financial"
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "category": "B_财务明细",
+      "query": "贵州茅台的毛利率水平怎么样？",
+      "expect_any": [
+        {
+          "company": "贵州茅台",
+          "type": "financial"
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "category": "B_财务明细",
+      "query": "汾酒这家公司赚钱能力如何？",
+      "expect_any": [
+        {
+          "company": "山西汾酒",
+          "type": "financial"
+        }
+      ],
+      "note": "简称别名链路"
+    },
+    {
+      "id": "B04",
+      "category": "B_财务明细",
+      "query": "工商银行的资产负债率高吗？",
+      "expect_any": [
+        {
+          "company": "工商银行",
+          "type": "financial"
+        }
+      ]
+    },
+    {
+      "id": "B05",
+      "category": "B_财务明细",
+      "query": "三一重工去年净利润多少？",
+      "expect_any": [
+        {
+          "company": "三一重工",
+          "type": "financial"
+        }
+      ]
+    },
+    {
+      "id": "B06",
+      "category": "B_财务明细",
+      "query": "万华化学的营业收入和总资产",
+      "expect_any": [
+        {
+          "company": "万华化学",
+          "type": "financial"
+        }
+      ]
+    },
+    {
+      "id": "C01",
+      "category": "C_研报内容",
+      "query": "工商银行的研究报告说了什么？",
+      "expect_any": [
+        {
+          "company": "工商银行",
+          "type": "research_report"
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "category": "C_研报内容",
+      "query": "宁德时代深度报告的核心观点是什么？",
+      "expect_any": [
+        {
+          "company": "宁德时代",
+          "type": "research_report"
+        }
+      ]
+    },
+    {
+      "id": "C03",
+      "category": "C_研报内容",
+      "query": "中国电建的研报怎么评价？",
+      "expect_any": [
+        {
+          "company": "中国电建",
+          "type": "research_report"
+        }
+      ]
+    },
+    {
+      "id": "C04",
+      "category": "C_研报内容",
+      "query": "同花顺有什么券商研报？",
+      "expect_any": [
+        {
+          "company": "同花顺",
+          "type": "research_report"
+        }
+      ]
+    },
+    {
+      "id": "C05",
+      "category": "C_研报内容",
+      "query": "洋河股份研报里对白酒行业的判断",
+      "expect_any": [
+        {
+          "company": "洋河股份",
+          "type": "research_report"
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "category": "E_行业词法召回",
+      "query": "锂电池行业怎么样？",
+      "expect_any": [
+        {
+          "sector": "电力设备",
+          "type": "research_report"
+        }
+      ],
+      "note": "无实体问法。实测：本合成语料下向量兜底能把电力设备研报排第一；BM25 被模板词表抹平（BM25_AS_FALLBACK=off 的依据）"
+    },
+    {
+      "id": "E02",
+      "category": "E_行业词法召回",
+      "query": "银行业有什么研报？",
+      "expect_any": [
+        {
+          "sector": "银行",
+          "type": "research_report"
+        }
+      ],
+      "note": "『银行』被别名闸门封禁，走向量兜底"
+    },
+    {
+      "id": "E03",
+      "category": "E_行业词法召回",
+      "query": "家电行业的研报观点",
+      "expect_any": [
+        {
+          "sector": "家用电器",
+          "type": "research_report"
+        }
+      ],
+      "note": "已知短板：两种兜底都召不回家用电器研报，作为已知缺口的回归哨兵"
+    },
+    {
+      "id": "E04",
+      "category": "E_行业词法召回",
+      "query": "量化选股模型在market10宇宙的表现如何？",
+      "expect_any": [
+        {
+          "sector": "量化选股模型实证",
+          "type": "research_report"
+        }
+      ],
+      "note": "2026-09-17 注入 stock-predictor 实证结论（selection_model_empirical_20260917.txt）的回归哨兵，确认可召回且不串味"
+    },
+    {
+      "id": "E05",
+      "category": "E_行业词法召回",
+      "query": "横截面选股策略实盘化后的年化收益和容量是多少？",
+      "expect_any": [
+        {
+          "sector": "量化选股模型实证",
+          "type": "research_report"
+        }
+      ],
+      "note": "同 E04，不同问法，防过拟合单句"
+    },
+    {
+      "id": "D01",
+      "category": "D_指标排行",
+      "query": "哪家公司的ROE最高？",
+      "expect_any": [],
+      "note": "结构化路径：期望返回带 agg_rank 的排行"
+    },
+    {
+      "id": "D02",
+      "category": "D_指标排行",
+      "query": "营业收入最高的公司是哪家？",
+      "expect_any": []
+    },
+    {
+      "id": "D03",
+      "category": "D_指标排行",
+      "query": "负债率比较低的公司有哪些？",
+      "expect_any": []
+    },
+    {
+      "id": "D04",
+      "category": "D_指标排行",
+      "query": "哪家公司市值最大？",
+      "expect_any": []
+    },
+    {
+      "id": "H01",
+      "category": "H_反向检查",
+      "query": "长江三角洲有哪些政策支持？",
+      "expect_any": [],
+      "expect_none": [
+        "长江电力"
+      ],
+      "note": "地理词不得误配公司（历史上曾错配）"
+    },
+    {
+      "id": "H02",
+      "category": "H_反向检查",
+      "query": "民生问题最近有什么新闻？",
+      "expect_any": [],
+      "expect_none": [
+        "民生银行"
+      ],
+      "note": "普通词不得误配公司（历史上曾错配）"
+    },
+    {
+      "id": "H03",
+      "category": "H_反向检查",
+      "query": "中国人民的生活水平如何？",
+      "expect_any": [],
+      "expect_none": [],
+      "note": "『中国人民』别名已封禁；记录返回了什么即可"
+    },
+    {
+      "id": "I01",
+      "category": "I_库外问题",
+      "query": "比特币最近的挖矿难度是多少？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "跨资产类别：库内只有 A 股（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I02",
+      "category": "I_库外问题",
+      "query": "苹果公司 2025 年第四季度营收是多少？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "美股个股：库内无美股档案（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I03",
+      "category": "I_库外问题",
+      "query": "美联储最近一次议息会议加息了多少基点？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "海外宏观：库内研报不涉及（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I04",
+      "category": "I_库外问题",
+      "query": "2026 年世界杯的冠军是哪支球队？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "完全非金融话题（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I05",
+      "category": "I_库外问题",
+      "query": "今天北京的最高气温是多少度？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "天气，与金融库无关（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I06",
+      "category": "I_库外问题",
+      "query": "黄金现货价格今天报多少美元一盎司？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "商品现货：库内无商品行情（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I07",
+      "category": "I_库外问题",
+      "query": "特斯拉目前的市值是多少亿美元？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "美股个股：库内无美股档案（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I08",
+      "category": "I_库外问题",
+      "query": "以太坊当前的 Gas 费是多少 Gwei？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "加密货币：库内无数字资产（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I09",
+      "category": "I_库外问题",
+      "query": "英伟达最新季度的每股收益 EPS 是多少？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "美股个股：库内无美股档案（2026-10-15 补， calibrate_refusal 负例用）"
+    },
+    {
+      "id": "I10",
+      "category": "I_库外问题",
+      "query": "人民币对美元的最新中间价是多少？",
+      "expect_any": [],
+      "expect_none": [
+        "贵州茅台",
+        "工商银行",
+        "中国平安",
+        "中国建筑"
+      ],
+      "note": "汇率：库内研报可能提及但不作主题（2026-10-15 补， calibrate_refusal 负例用）"
+    }
+  ]
+}

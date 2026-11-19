@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinGPT - AI Financial Analyst</title>
+    <style>
+        /* ============ 墨 · Ink 主题（局部内联版，与 shared/theme.css 同源） ============ */
+        :root {
+            --bg-primary: #211d16;             /* 暖调近黑 */
+            --bg-secondary: #292419;
+            --bg-card: #292419;
+            --bg-glass: #332d21;
+            --border: rgba(240, 235, 224, 0.10);
+            --border-hover: rgba(184, 137, 74, 0.45);
+            --text-primary: #f0ebe0;
+            --text-secondary: #cfc3ae;
+            --text-muted: #b3a892;
+            --accent-blue: #c9995a;            /* 赭金（沿用旧变量名，改值不改逻辑） */
+            --accent-purple: #8a6f9e;          /* 紫檀 */
+            --accent-cyan: #8fa3ba;            /* 黛蓝 */
+            --accent-green: #569a78;           /* 青瓷 */
+            --accent-amber: #c9995a;
+            --serif: Georgia, "Songti SC", "SimSun", "Noto Serif CJK SC", serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .layout {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 18px;
+        }
+
+        /* ---- 左栏 ---- */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .brand {
+            padding: 26px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .brand-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 16px;
+            border: 1px solid var(--border-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 26px;
+            color: var(--accent-blue);
+        }
+
+        .brand h1 {
+            font-family: var(--serif);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 0.10em;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            letter-spacing: 0.04em;
+        }
+
+        .stats-card, .suggestions-card {
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .stats-title {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-family: var(--serif);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .stat-item {
+            padding: 12px 8px;
+            background: var(--bg-card);
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: var(--serif);
+            font-size: 20px;
+            color: var(--accent-blue);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .suggestions-card {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .suggestion-item {
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            border-left: 2px solid transparent;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.15s, background 0.15s;
+            line-height: 1.5;
+        }
+
+        .suggestion-item:hover {
+            color: var(--accent-blue);
+            background: var(--bg-glass);
+            border-left-color: var(--accent-blue);
+        }
+
+        /* ---- 主对话区 ---- */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            /* a11y: 原为 animation: pulse 2s infinite —— 该点是静态元素（始终存在、无状态切换），
+               无限脉冲是装饰性"假活跃"。状态由颜色承载，去掉动画不减信息。 */
+        }
+
+        .chat-header h2 {
+            font-family: var(--serif);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+        }
+
+        .model-badge {
+            padding: 3px 10px;
+            border: 1px solid var(--border-hover);
+            font-size: 12px;
+            color: var(--accent-blue);
+            letter-spacing: 0.04em;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-messages::-webkit-scrollbar { width: 5px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(240, 235, 224, 0.12); }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .welcome-icon {
+            width: 72px;
+            height: 72px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 34px;
+            color: var(--accent-blue);
+        }
+
+        .welcome-screen h2 {
+            font-family: var(--serif);
+            font-size: 23px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+
+        .welcome-screen p {
+            color: var(--text-muted);
+            font-size: 13px;
+            max-width: 420px;
+            line-height: 1.7;
+        }
+
+        .message { margin-bottom: 20px; animation: fadeIn 0.3s ease; }
+
+        .message-user {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .message-user .msg-content {
+            background: var(--bg-glass);
+            border-right: 2px solid var(--accent-blue);
+            color: var(--text-primary);
+            max-width: 75%;
+            padding: 12px 16px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .message-ai {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .ai-avatar {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 15px;
+            color: var(--accent-blue);
+            flex-shrink: 0;
+        }
+
+        .message-ai .msg-content {
+            background: transparent;
+            border-left: 1px solid var(--border);
+            max-width: 80%;
+            padding: 4px 0 4px 18px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .msg-content h3 { font-family: var(--serif); font-size: 15px; font-weight: 400; margin: 12px 0 6px; color: var(--accent-cyan); letter-spacing: 0.04em; }
+        .msg-content h4 { font-family: var(--serif); font-size: 13px; font-weight: 400; margin: 8px 0 4px; color: var(--accent-purple); }
+        .msg-content strong { color: var(--text-primary); }
+        .msg-content code { background: var(--bg-glass); padding: 2px 6px; font-size: 13px; }
+
+        .sources-section {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .sources-title {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-family: var(--serif);
+        }
+
+        .source-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            margin: 2px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+            cursor: pointer;
+        }
+
+        .source-tag .score {
+            color: var(--accent-green);
+        }
+
+        /* ---- 引用溯源：答案里的 [n] 上标 + 可展开来源条 ---- */
+        sup.cite {
+            color: var(--accent-blue);
+            cursor: pointer;
+            font-size: 10px;
+            padding: 0 1px;
+        }
+        sup.cite:hover { text-decoration: underline; }
+        .src-idx { color: var(--accent-blue); font-weight: 600; }
+        .src-detail {
+            display: none;
+            margin: 2px 0 6px;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-left: 2px solid var(--accent-blue);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+        }
+        .src-item.open .src-detail { display: block; }
+        .src-item.flash .source-tag { border-color: var(--accent-blue); background: var(--bg-glass); }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        /* ---- 输入区 ---- */
+        .input-area {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-primary);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-wrapper input {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 13px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .input-wrapper input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            width: 46px;
+            height: 46px;
+            background: transparent;
+            border: 1px solid var(--border-hover);
+            color: var(--accent-blue);
+            font-size: 18px;
+            font-family: var(--serif);
+            cursor: pointer;
+            transition: background 0.15s;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover { background: var(--bg-glass); }
+
+        .send-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .input-hint {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        /* ---- 产品宣传片弹窗 ---- */
+        .promo-btn {
+            margin-left: 10px;
+            padding: 4px 12px;
+            background: transparent;
+            border: 1px solid var(--border-hover);
+            color: var(--accent-blue);
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-family: inherit;
+        }
+        .promo-btn:hover { background: var(--bg-glass); }
+
+        .promo-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 9, 7, 0.88);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+        .promo-modal-box {
+            position: relative;
+            width: min(960px, 92vw);
+            height: min(560px, 86vh);
+            background: #000;
+            border: 1px solid var(--border-hover);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .promo-modal-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: #0a0e1a;
+        }
+        .promo-close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            z-index: 2;
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .promo-close:hover { background: rgba(0, 0, 0, 0.8); }
+
+        /* ---- 响应式 ---- */
+        @media (max-width: 768px) {
+            .layout { flex-direction: column; padding: 10px; }
+            .sidebar { width: 100%; flex-direction: row; overflow-x: auto; }
+            .sidebar > * { min-width: 280px; }
+            .brand { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">金</div>
+                <h1>FinGPT</h1>
+                <p>AI-Powered Financial Analyst<br>Powered by Step-3.5-Flash + ChromaDB</p>
+            </div>
+
+            <div class="stats-card" id="statsCard">
+                <div class="stats-title">Knowledge Base</div>
+                <div class="stat-grid" id="stats"></div>
+            </div>
+
+            <div class="suggestions-card">
+                <div class="stats-title">Quick Questions</div>
+                <div id="suggestions"></div>
+            </div>
+        </div>
+
+        <!-- Main Chat -->
+        <div class="main">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <div class="status-dot"></div>
+                    <h2>Financial Analysis Chat</h2>
+                </div>
+                <div class="model-badge">Step-3.5-Flash</div>
+                <button class="promo-btn" onclick="openPromo()" title="观看产品宣传片">▶ 宣传片</button>
+            </div>
+
+            <div class="chat-messages" id="chatBox">
+                <div class="welcome-screen" id="welcome">
+                    <div class="welcome-icon">问</div>
+                    <h2>Ask anything about finance</h2>
+                    <p>Query company financials, stock data, credit ratings, and industry trends from the knowledge base.</p>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="queryInput" placeholder="Ask about companies, stocks, financials..." onkeypress="if(event.key==='Enter')ask()">
+                    <button class="send-btn" id="askBtn" onclick="ask()">↑</button>
+                </div>
+                <div class="input-hint">Press Enter to send · Powered by MySQL + ChromaDB + ModelScope</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chatBox');
+        const queryInput = document.getElementById('queryInput');
+        const askBtn = document.getElementById('askBtn');
+        const statsDiv = document.getElementById('stats');
+        const suggestionsDiv = document.getElementById('suggestions');
+        let firstMsg = true;
+
+        // ===== 访问 key（对应后端 RAG_API_KEY 开关）=====
+        // 后端默认不启用校验；一旦平台设了 RAG_API_KEY，所有读接口都要 X-API-Key。
+        // key 存 localStorage，首次 401 时弹一次输入框，之后自动带上。
+        const API_KEY_STORE = 'moml_api_key';
+        const apiKey = () => localStorage.getItem(API_KEY_STORE) || '';
+        function apiHeaders(extra) {
+            const h = Object.assign({}, extra || {});
+            const k = apiKey();
+            if (k) h['X-API-Key'] = k;
+            return h;
+        }
+        async function apiFetch(url, opts, _retried) {
+            opts = opts || {};
+            opts.headers = apiHeaders(opts.headers);
+            const resp = await fetch(url, opts);
+            if (resp.status === 401 && !_retried) {
+                const k = window.prompt('该服务已开启访问校验，请输入 API Key：', apiKey());
+                if (k && k.trim()) {
+                    localStorage.setItem(API_KEY_STORE, k.trim());
+                    return apiFetch(url, opts, true);
+                }
+            }
+            return resp;
+        }
+
+        // Load stats
+        apiFetch('api/stats').then(r => r.json()).then(d => {
+            const types = {};
+            let html = `<div class="stat-item"><div class="stat-num">${d.total_documents}</div><div class="stat-label">Documents</div></div>`;
+            for (const [type, count] of Object.entries(d.by_type)) {
+                html += `<div class="stat-item"><div class="stat-num">${count}</div><div class="stat-label">${types[type] || ''} ${type}</div></div>`;
+            }
+            statsDiv.innerHTML = html;
+        });
+
+        // Load suggestions
+        apiFetch('api/suggest').then(r => r.json()).then(list => {
+            suggestionsDiv.innerHTML = list.map(q =>
+                `<div class="suggestion-item" onclick="askQuestion('${q}')">${q}</div>`
+            ).join('');
+        });
+
+        function addMsg(role, html) {
+            if (firstMsg) {
+                document.getElementById('welcome')?.remove();
+                firstMsg = false;
+            }
+            const div = document.createElement('div');
+            div.className = `message message-${role}`;
+            if (role === 'ai') {
+                div.innerHTML = `<div class="ai-avatar">答</div><div class="msg-content">${html}</div>`;
+            } else {
+                div.innerHTML = `<div class="msg-content">${html}</div>`;
+            }
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return div;
+        }
+
+        function askQuestion(q) {
+            queryInput.value = q;
+            ask();
+        }
+
+        // REQ-074：模型正文要塞进 innerHTML ⇒ 先转义再补我们自己的标签。
+        // 部署件那一份（moml-cloud/data-plane/…）本来就有 esc，这一侧此前完全裸拼。
+        function esc(s) {
+            return String(s == null ? '' : s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        // 只按「标签名」放行，属性一律不带过去（<a> 的 href 走 safeHref 白名单）。
+        // 名单外的标签丢掉自身、保留子节点；RICH_DROP 那一批连子节点一起丢——里面是代码不是内容。
+        const RICH_ALLOW = { STRONG: 1, EM: 1, B: 1, I: 1, CODE: 1, PRE: 1, BR: 1, P: 1,
+                             UL: 1, OL: 1, LI: 1, BLOCKQUOTE: 1,
+                             TABLE: 1, THEAD: 1, TBODY: 1, TR: 1, TH: 1, TD: 1, A: 1 };
+        const RICH_DROP = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, IFRAME: 1, OBJECT: 1,
+                            EMBED: 1, LINK: 1, META: 1, SVG: 1, MATH: 1 };
+
+        function safeHref(h) {
+            const v = String(h == null ? '' : h).trim();
+            return /^https?:\/\/[^\s<>"']+$/i.test(v) ? v : null;
+        }
+
+        function renderRich(raw) {
+            const doc = new DOMParser().parseFromString(String(raw == null ? '' : raw), 'text/html');
+            const walk = (node) => {
+                let out = '';
+                node.childNodes.forEach((ch) => {
+                    if (ch.nodeType === 3) { out += esc(ch.nodeValue); return; }
+                    if (ch.nodeType !== 1) return;
+                    const tag = ch.tagName.toUpperCase();
+                    if (RICH_DROP[tag]) return;
+                    if (!RICH_ALLOW[tag]) { out += walk(ch); return; }
+                    if (tag === 'BR') { out += '<br>'; return; }
+                    const href = tag === 'A' ? safeHref(ch.getAttribute('href')) : null;
+                    const open = href ? '<a href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">'
+                                      : '<' + tag.toLowerCase() + '>';
+                    out += open + walk(ch) + '</' + tag.toLowerCase() + '>';
+                });
+                return out;
+            };
+            return walk(doc.body);
+        }
+
+        let msgSeq = 0;   // 引用溯源：每条回答一个命名空间，避免多轮对话里 [n] 跳错来源
+
+        async function ask() {
+            const q = queryInput.value.trim();
+            if (!q) return;
+
+            queryInput.value = '';
+            askBtn.disabled = true;
+
+            addMsg('user', q);
+            const typing = addMsg('ai', '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>');
+
+            try {
+                const resp = await apiFetch('api/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: q, use_llm: true })
+                });
+                const data = await resp.json();
+
+                const mid = ++msgSeq;
+                typing.dataset.mid = mid;
+                const srcs = data.sources || [];
+                let html = '';
+                // 超预算时后端降级为纯检索，把原因显式告诉用户，别让人以为答得差是模型问题
+                if (data.degraded) {
+                    html += `<div class="sources-title" style="color:var(--accent-amber,#d19a3a)">${esc(data.notice || '已降级为纯检索')}</div>`;
+                }
+                // 先过 sanitizer 再补样式：转义之后 ** [ ] 数字和 \n 都原样保留，
+                // 所以下面三个 replace 只会新增我们自己的标签，模型给不了。
+                html += renderRich(data.answer || '')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    // 引用溯源：答案里的 [n] → 可点上标，跳到下方第 n 条来源
+                    .replace(/\[(\d+)\]/g, (m, n) => {
+                        const i = parseInt(n, 10);
+                        return (i >= 1 && i <= srcs.length)
+                            ? `<sup class="cite" data-mid="${mid}" data-n="${i}">[${i}]</sup>` : m;
+                    })
+                    .replace(/\n/g, '<br>');
+
+                if (srcs.length > 0) {
+                    html += '<div class="sources-section">';
+                    html += '<div class="sources-title">Sources（点 [编号] 展开原文依据）</div>';
+                    srcs.forEach((s, idx) => {
+                        const n = idx + 1;
+                        // roster：REQ-050 的行业清单带 agg_rank，但那是按公司名排的**序号**，
+                        // 印成"第N名"会把刻意无排行的清单读成排行（删 rank 也不行：部署件 score=None 会退回假读数 0.0%）。
+                        var badge = s.rank ? ('第' + s.rank + (s.roster ? '家' : '名'))
+                                          : (s.score == null ? '—' : (s.score * 100).toFixed(1) + '%');
+                        html += `<div class="src-item" id="src-${mid}-${n}">`
+                             + `<span class="source-tag"><span class="src-idx">[${n}]</span>`
+                             + `${esc(s.type)} · ${esc(s.stock_code)} · ${esc(s.company)} <span class="score">${esc(badge)}</span></span>`
+                             + `<div class="src-detail">${esc(s.text)}</div>`
+                             + `</div>`;
+                    });
+                    html += '</div>';
+                }
+
+                // 后端 400/401/409 等也会走到这里（fetch 不抛），把 error 显示出来别留空白气泡
+                if (data.error) {
+                    html = `<span style="color:var(--accent-green)">${esc(data.error)}</span>`;
+                }
+
+                typing.querySelector('.msg-content').innerHTML = html;
+            } catch(e) {
+                typing.querySelector('.msg-content').innerHTML = `<span style="color:var(--accent-green)">Error: ${esc(e.message)}</span>`;
+            }
+
+            askBtn.disabled = false;
+            queryInput.focus();
+        }
+
+        // 引用溯源交互：[n] 上标 → 展开并高亮对应来源；点来源条 → 收起/展开原文
+        chatBox.addEventListener('click', (ev) => {
+            const cite = ev.target.closest('sup.cite');
+            if (cite) {
+                const item = document.getElementById(`src-${cite.dataset.mid}-${cite.dataset.n}`);
+                if (item) {
+                    item.classList.add('open');
+                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    item.classList.add('flash');
+                    setTimeout(() => item.classList.remove('flash'), 1200);
+                }
+                return;
+            }
+            const tag = ev.target.closest('.source-tag');
+            if (tag) {
+                const item = tag.closest('.src-item');
+                if (item) item.classList.toggle('open');
+            }
+        });
+
+        queryInput.focus();
+
+        // ===== 产品宣传片弹窗（纯前端，iframe 内嵌 /static/rag-finance-qa-promo.html）=====
+        function openPromo() {
+            document.getElementById('promoModal').style.display = 'flex';
+        }
+        function closePromo() {
+            document.getElementById('promoModal').style.display = 'none';
+        }
+    </script>
+
+    <!-- 宣传片弹窗 -->
+    <div id="promoModal" class="promo-modal" onclick="if(event.target===this)closePromo()">
+        <div class="promo-modal-box">
+            <button class="promo-close" onclick="closePromo()" title="关闭">×</button>
+            <iframe id="promoFrame" src="/static/rag-finance-qa-promo.html" frameborder="0"
+                    allow="autoplay; fullscreen"></iframe>
+        </div>
+    </div>
+</body>
+</html>

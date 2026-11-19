@@ -1,0 +1,1 @@
+{"ts": "2026-11-08T23:58:36", "query": "科技行业有哪些公司？", "model": "stepfun-ai/Step-3.5-Flash", "prompt_chars": 2112, "answer_chars": 0, "prompt_tokens": null, "completion_tokens": null, "elapsed_ms": 217.5, "error": "HTTPError: 400 Client Error: Bad Request for url: https://api-inference.modelscope.cn/v1/chat/completions"}

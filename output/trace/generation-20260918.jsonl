@@ -1,0 +1,1 @@
+{"ts": "2026-09-18T14:46:07", "query": "贵州茅台的财务状况如何？", "model": "Qwen/Qwen3-8B", "prompt_chars": 1686, "answer_chars": 0, "prompt_tokens": null, "completion_tokens": null, "elapsed_ms": 370.1, "error": "HTTPError: 400 Client Error: Bad Request for url: https://api-inference.modelscope.cn/v1/chat/completions"}

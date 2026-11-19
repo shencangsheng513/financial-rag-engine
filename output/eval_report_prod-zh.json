@@ -1,0 +1,1276 @@
+{
+  "tag": "prod-zh",
+  "engine": "v2",
+  "top_k": 5,
+  "upgrades": "on",
+  "overall_recall_abc": 0.95,
+  "h_violations": 2,
+  "results": [
+    {
+      "id": "A01",
+      "category": "A_公司档案",
+      "query": "贵州茅台是做什么的？",
+      "top_companies": [
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "SH600519_overview",
+          "company": "贵州茅台",
+          "type": "overview",
+          "agg_rank": null
+        },
+        {
+          "id": "report_贵州茅台_7ad786fd7dde",
+          "company": "贵州茅台",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2026Q2",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2026Q1",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2025Q4",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "A02",
+      "category": "A_公司档案",
+      "query": "招商银行的公司简介",
+      "top_companies": [
+        "招商银行",
+        "招商银行",
+        "招商银行",
+        "招商银行",
+        "招商银行"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "SH600036_overview",
+          "company": "招商银行",
+          "type": "overview",
+          "agg_rank": null
+        },
+        {
+          "id": "report_招商银行_3f403424bbb2",
+          "company": "招商银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600036_finance_2026Q2",
+          "company": "招商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600036_finance_2026Q1",
+          "company": "招商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600036_finance_2025Q4",
+          "company": "招商银行",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "A03",
+      "category": "A_公司档案",
+      "query": "中国平安属于什么行业？",
+      "top_companies": [
+        "中国平安",
+        "中国平安",
+        "中国平安",
+        "中国平安",
+        "中国平安"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "SH601318_overview",
+          "company": "中国平安",
+          "type": "overview",
+          "agg_rank": null
+        },
+        {
+          "id": "report_中国平安_2023e610937f",
+          "company": "中国平安",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601318_finance_2026Q2",
+          "company": "中国平安",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601318_finance_2026Q1",
+          "company": "中国平安",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601318_finance_2025Q4",
+          "company": "中国平安",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "A04",
+      "category": "A_公司档案",
+      "query": "宁王的主营业务是什么？",
+      "top_companies": [
+        "宁德时代",
+        "宁德时代",
+        "宁德时代",
+        "宁德时代",
+        "宁德时代"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "SZ300750_overview",
+          "company": "宁德时代",
+          "type": "overview",
+          "agg_rank": null
+        },
+        {
+          "id": "report_宁德时代_8b6916f4412f",
+          "company": "宁德时代",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2026Q2",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2026Q1",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2025Q4",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "A05",
+      "category": "A_公司档案",
+      "query": "茅台的市值是多少？",
+      "top_companies": [
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "SH600519_overview",
+          "company": "贵州茅台",
+          "type": "overview",
+          "agg_rank": null
+        },
+        {
+          "id": "report_贵州茅台_7ad786fd7dde",
+          "company": "贵州茅台",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2026Q2",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2026Q1",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2025Q4",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "A06",
+      "category": "A_公司档案",
+      "query": "东方财富是哪个行业的公司？",
+      "top_companies": [
+        "东方财富",
+        "东方财富",
+        "东方财富",
+        "东方财富",
+        "东方财富"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_东方财富_d25dfd48916c",
+          "company": "东方财富",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300059_finance_2026Q2",
+          "company": "东方财富",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300059_finance_2026Q1",
+          "company": "东方财富",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300059_finance_2025Q4",
+          "company": "东方财富",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300059_finance_2025Q3",
+          "company": "东方财富",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 0.0,
+      "missed": [
+        {
+          "company": "东方财富",
+          "type": "overview"
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "category": "B_财务明细",
+      "query": "宁德时代的营收是多少？",
+      "top_companies": [
+        "宁德时代",
+        "宁德时代",
+        "宁德时代",
+        "宁德时代",
+        "宁德时代"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_宁德时代_8b6916f4412f",
+          "company": "宁德时代",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2026Q2",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2026Q1",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2025Q4",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2025Q3",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "B02",
+      "category": "B_财务明细",
+      "query": "贵州茅台的毛利率水平怎么样？",
+      "top_companies": [
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台",
+        "贵州茅台"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_贵州茅台_7ad786fd7dde",
+          "company": "贵州茅台",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2026Q2",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2026Q1",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2025Q4",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600519_finance_2025Q3",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "B03",
+      "category": "B_财务明细",
+      "query": "汾酒这家公司赚钱能力如何？",
+      "top_companies": [
+        "贵州茅台",
+        "五 粮 液",
+        "山西汾酒",
+        "泸州老窖",
+        "海天味业"
+      ],
+      "used_structured": true,
+      "returned": [
+        {
+          "id": "agg:SH600519",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": 1
+        },
+        {
+          "id": "agg:SZ000858",
+          "company": "五 粮 液",
+          "type": "financial",
+          "agg_rank": 2
+        },
+        {
+          "id": "agg:SH600809",
+          "company": "山西汾酒",
+          "type": "financial",
+          "agg_rank": 3
+        },
+        {
+          "id": "agg:SZ000568",
+          "company": "泸州老窖",
+          "type": "financial",
+          "agg_rank": 4
+        },
+        {
+          "id": "agg:SH603288",
+          "company": "海天味业",
+          "type": "financial",
+          "agg_rank": 5
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "B04",
+      "category": "B_财务明细",
+      "query": "工商银行的资产负债率高吗？",
+      "top_companies": [
+        "工商银行",
+        "工商银行",
+        "工商银行",
+        "工商银行",
+        "工商银行"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_工商银行_94b9c8f7c1f0",
+          "company": "工商银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2026Q2",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2026Q1",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2025Q4",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2025Q3",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "B05",
+      "category": "B_财务明细",
+      "query": "三一重工去年净利润多少？",
+      "top_companies": [
+        "三一重工",
+        "三一重工",
+        "三一重工",
+        "三一重工",
+        "三一重工"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_三一重工_7f9d0b58838f",
+          "company": "三一重工",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600031_finance_2026Q2",
+          "company": "三一重工",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600031_finance_2026Q1",
+          "company": "三一重工",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600031_finance_2025Q4",
+          "company": "三一重工",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600031_finance_2025Q3",
+          "company": "三一重工",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "B06",
+      "category": "B_财务明细",
+      "query": "万华化学的营业收入和总资产",
+      "top_companies": [
+        "万华化学",
+        "万华化学",
+        "万华化学",
+        "万华化学",
+        "万华化学"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_万华化学_de14b8747e9b",
+          "company": "万华化学",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600309_finance_2026Q2",
+          "company": "万华化学",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600309_finance_2026Q1",
+          "company": "万华化学",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600309_finance_2025Q4",
+          "company": "万华化学",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600309_finance_2025Q3",
+          "company": "万华化学",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "C01",
+      "category": "C_研报内容",
+      "query": "工商银行的研究报告说了什么？",
+      "top_companies": [
+        "工商银行",
+        "工商银行",
+        "工商银行",
+        "工商银行",
+        "工商银行"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_工商银行_94b9c8f7c1f0",
+          "company": "工商银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2026Q2",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2026Q1",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2025Q4",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601398_finance_2025Q3",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "C02",
+      "category": "C_研报内容",
+      "query": "宁德时代深度报告的核心观点是什么？",
+      "top_companies": [
+        "宁德时代",
+        "宁德时代",
+        "宁德时代",
+        "宁德时代",
+        "宁德时代"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_宁德时代_8b6916f4412f",
+          "company": "宁德时代",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2026Q2",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2026Q1",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2025Q4",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300750_finance_2025Q3",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "C03",
+      "category": "C_研报内容",
+      "query": "中国电建的研报怎么评价？",
+      "top_companies": [
+        "中国电建",
+        "中国电建",
+        "中国电建",
+        "中国电建",
+        "中国电建"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_中国电建_4e37e1b0540a",
+          "company": "中国电建",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601669_finance_2026Q2",
+          "company": "中国电建",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601669_finance_2026Q1",
+          "company": "中国电建",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601669_finance_2025Q4",
+          "company": "中国电建",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601669_finance_2025Q3",
+          "company": "中国电建",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "C04",
+      "category": "C_研报内容",
+      "query": "同花顺有什么券商研报？",
+      "top_companies": [
+        "同花顺",
+        "同花顺",
+        "同花顺",
+        "同花顺",
+        "同花顺"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_同花顺_4ca404b4ee5f",
+          "company": "同花顺",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300033_finance_2026Q2",
+          "company": "同花顺",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300033_finance_2026Q1",
+          "company": "同花顺",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300033_finance_2025Q4",
+          "company": "同花顺",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300033_finance_2025Q3",
+          "company": "同花顺",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "C05",
+      "category": "C_研报内容",
+      "query": "洋河股份研报里对白酒行业的判断",
+      "top_companies": [
+        "洋河股份",
+        "洋河股份",
+        "洋河股份",
+        "洋河股份",
+        "洋河股份"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_洋河股份_b137cdde5986",
+          "company": "洋河股份",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ002304_finance_2026Q2",
+          "company": "洋河股份",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ002304_finance_2026Q1",
+          "company": "洋河股份",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ002304_finance_2025Q4",
+          "company": "洋河股份",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ002304_finance_2025Q3",
+          "company": "洋河股份",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "E01",
+      "category": "E_行业词法召回",
+      "query": "锂电池行业怎么样？",
+      "top_companies": [
+        "赣锋锂业",
+        "天齐锂业",
+        "亿纬锂能",
+        "亿纬锂能",
+        "亿纬锂能"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_赣锋锂业_7cd6473d2ab6",
+          "company": "赣锋锂业",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_天齐锂业_524acd1a93ee",
+          "company": "天齐锂业",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_亿纬锂能_a72a6ab2862d",
+          "company": "亿纬锂能",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300014_finance_2025Q4",
+          "company": "亿纬锂能",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SZ300014_finance_2025Q3",
+          "company": "亿纬锂能",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "E02",
+      "category": "E_行业词法召回",
+      "query": "银行业有什么研报？",
+      "top_companies": [
+        "农业银行",
+        "工商银行",
+        "宁波银行",
+        "招商银行",
+        "光大银行"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_农业银行_dc31c460f6b2",
+          "company": "农业银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_工商银行_94b9c8f7c1f0",
+          "company": "工商银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_宁波银行_3d5529f4f351",
+          "company": "宁波银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_招商银行_3f403424bbb2",
+          "company": "招商银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_光大银行_2f3f8b775ad4",
+          "company": "光大银行",
+          "type": "research_report",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "E03",
+      "category": "E_行业词法召回",
+      "query": "家电行业的研报观点",
+      "top_companies": [
+        "美的集团",
+        "格力电器",
+        "苏 泊 尔",
+        "中国核电",
+        "中国电建"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_美的集团_575c22a3a3f2",
+          "company": "美的集团",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_格力电器_6e5949a2d760",
+          "company": "格力电器",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_苏 泊 尔_ef351dea3a2c",
+          "company": "苏 泊 尔",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_中国核电_c203b30298fe",
+          "company": "中国核电",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_中国电建_4e37e1b0540a",
+          "company": "中国电建",
+          "type": "research_report",
+          "agg_rank": null
+        }
+      ],
+      "recall": 1.0,
+      "missed": []
+    },
+    {
+      "id": "D01",
+      "category": "D_指标排行",
+      "query": "哪家公司的ROE最高？",
+      "top_companies": [
+        "分众传媒",
+        "中国人寿",
+        "苏 泊 尔",
+        "贵州茅台",
+        "山西汾酒"
+      ],
+      "used_structured": true,
+      "returned": [
+        {
+          "id": "agg:SZ002027",
+          "company": "分众传媒",
+          "type": "financial",
+          "agg_rank": 1
+        },
+        {
+          "id": "agg:SH601628",
+          "company": "中国人寿",
+          "type": "financial",
+          "agg_rank": 2
+        },
+        {
+          "id": "agg:SZ002032",
+          "company": "苏 泊 尔",
+          "type": "financial",
+          "agg_rank": 3
+        },
+        {
+          "id": "agg:SH600519",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": 4
+        },
+        {
+          "id": "agg:SH600809",
+          "company": "山西汾酒",
+          "type": "financial",
+          "agg_rank": 5
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "category": "D_指标排行",
+      "query": "营业收入最高的公司是哪家？",
+      "top_companies": [
+        "中国建筑",
+        "中国平安",
+        "工业富联",
+        "工商银行",
+        "中国人寿"
+      ],
+      "used_structured": true,
+      "returned": [
+        {
+          "id": "agg:SH601668",
+          "company": "中国建筑",
+          "type": "financial",
+          "agg_rank": 1
+        },
+        {
+          "id": "agg:SH601318",
+          "company": "中国平安",
+          "type": "financial",
+          "agg_rank": 2
+        },
+        {
+          "id": "agg:SH601138",
+          "company": "工业富联",
+          "type": "financial",
+          "agg_rank": 3
+        },
+        {
+          "id": "agg:SH601398",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": 4
+        },
+        {
+          "id": "agg:SH601628",
+          "company": "中国人寿",
+          "type": "financial",
+          "agg_rank": 5
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "category": "D_指标排行",
+      "query": "负债率比较低的公司有哪些？",
+      "top_companies": [
+        "恒瑞医药",
+        "君正股份",
+        "亿联网络",
+        "贵州茅台",
+        "洋河股份"
+      ],
+      "used_structured": true,
+      "returned": [
+        {
+          "id": "agg:SH600276",
+          "company": "恒瑞医药",
+          "type": "financial",
+          "agg_rank": 1
+        },
+        {
+          "id": "agg:SZ300223",
+          "company": "君正股份",
+          "type": "financial",
+          "agg_rank": 2
+        },
+        {
+          "id": "agg:SZ300628",
+          "company": "亿联网络",
+          "type": "financial",
+          "agg_rank": 3
+        },
+        {
+          "id": "agg:SH600519",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": 4
+        },
+        {
+          "id": "agg:SZ002304",
+          "company": "洋河股份",
+          "type": "financial",
+          "agg_rank": 5
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "category": "D_指标排行",
+      "query": "哪家公司市值最大？",
+      "top_companies": [
+        "工商银行",
+        "农业银行",
+        "贵州茅台",
+        "宁德时代",
+        "工业富联"
+      ],
+      "used_structured": true,
+      "returned": [
+        {
+          "id": "agg:SH601398",
+          "company": "工商银行",
+          "type": "financial",
+          "agg_rank": 1
+        },
+        {
+          "id": "agg:SH601288",
+          "company": "农业银行",
+          "type": "financial",
+          "agg_rank": 2
+        },
+        {
+          "id": "agg:SH600519",
+          "company": "贵州茅台",
+          "type": "financial",
+          "agg_rank": 3
+        },
+        {
+          "id": "agg:SZ300750",
+          "company": "宁德时代",
+          "type": "financial",
+          "agg_rank": 4
+        },
+        {
+          "id": "agg:SH601138",
+          "company": "工业富联",
+          "type": "financial",
+          "agg_rank": 5
+        }
+      ]
+    },
+    {
+      "id": "H01",
+      "category": "H_反向检查",
+      "query": "长江三角洲有哪些政策支持？",
+      "top_companies": [
+        "长江电力",
+        "长江电力",
+        "长江电力",
+        "长江电力",
+        "长江电力"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_长江电力_790af6a63ed0",
+          "company": "长江电力",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600900_finance_2025Q3",
+          "company": "长江电力",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600900_finance_2025Q4",
+          "company": "长江电力",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600900_finance_2026Q1",
+          "company": "长江电力",
+          "type": "financial",
+          "agg_rank": null
+        },
+        {
+          "id": "SH600900_finance_2026Q2",
+          "company": "长江电力",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ],
+      "violations": [
+        "长江电力"
+      ]
+    },
+    {
+      "id": "H02",
+      "category": "H_反向检查",
+      "query": "民生问题最近有什么新闻？",
+      "top_companies": [
+        "民生银行",
+        "长春高新",
+        "智飞生物",
+        "分众传媒",
+        "恒生电子"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_民生银行_0e69deafb481",
+          "company": "民生银行",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_长春高新_e14d1bfa3718",
+          "company": "长春高新",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_智飞生物_0b84ef499f79",
+          "company": "智飞生物",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_分众传媒_e44cd6f0bbfd",
+          "company": "分众传媒",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_恒生电子_0852c635339b",
+          "company": "恒生电子",
+          "type": "research_report",
+          "agg_rank": null
+        }
+      ],
+      "violations": [
+        "民生银行"
+      ]
+    },
+    {
+      "id": "H03",
+      "category": "H_反向检查",
+      "query": "中国人民的生活水平如何？",
+      "top_companies": [
+        "中国人寿",
+        "中国建筑",
+        "中国中免",
+        "中国电建",
+        "中国人寿"
+      ],
+      "used_structured": false,
+      "returned": [
+        {
+          "id": "report_中国人寿_d2625eb3af54",
+          "company": "中国人寿",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_中国建筑_acbd3ec76753",
+          "company": "中国建筑",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_中国中免_6335b1dfb2d3",
+          "company": "中国中免",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "report_中国电建_4e37e1b0540a",
+          "company": "中国电建",
+          "type": "research_report",
+          "agg_rank": null
+        },
+        {
+          "id": "SH601628_finance_2026Q1",
+          "company": "中国人寿",
+          "type": "financial",
+          "agg_rank": null
+        }
+      ]
+    }
+  ]
+}

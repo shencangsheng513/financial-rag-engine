@@ -1,0 +1,32 @@
+{
+  "updated": "2026-09-17",
+  "_note": "回归基线快照。更新必须显式：确认指标提升后改这里，并在提交信息里写理由。降基线 = 拆门禁。2026-09-17：注入 stock-predictor 实证结论（4 块，doc_type=quant_strategy_empirical，sector=量化选股模型实证）后重测，upgraded 标签刷新为 22 用例实测值；新增 E04/E05 正向哨兵覆盖注入文档。召回 1.00、H 违规 0。",
+  "floor_recall": 0.8,
+  "tolerance": 0.01,
+  "tags": {
+    "baseline": {
+      "overall_recall_abc": 0.95,
+      "h_violations": 2,
+      "engine": "v2",
+      "top_k": 5,
+      "upgrades": "off",
+      "_from": "eval_report_baseline.json"
+    },
+    "upgraded": {
+      "overall_recall_abc": 1.0,
+      "h_violations": 0,
+      "engine": "v2",
+      "top_k": 5,
+      "upgrades": "on",
+      "_from": "eval_report_upgraded.json"
+    },
+    "zh-bge": {
+      "overall_recall_abc": 0.95,
+      "h_violations": 2,
+      "engine": "v2",
+      "top_k": 5,
+      "upgrades": "on",
+      "_from": "eval_report_zh-bge.json"
+    }
+  }
+}

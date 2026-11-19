@@ -1,0 +1,12 @@
+# 2026-09-10 新增：本仓库曾把 .env（含明文 API key）提交，必须排除
+.env
+.env.*
+*.bak
+*.old
+__pycache__/
+*.py[cod]
+logs/
+data/
+chroma_db/
+*.pkl
+*.log

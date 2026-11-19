@@ -1,0 +1,63 @@
+"""RAG 金融问答系统 - 配置文件"""
+
+import sys
+import os
+
+# 接入共享配置（数据库密码等敏感项统一从项目根 .env 读取）
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from shared.config import MYSQL_CONFIG, PROXY, CHROMA_DB_PATH, COLLECTION_NAME
+
+# ChromaDB 配置：路径单一来源在 shared/config.py（归 rag 所有）
+
+# Embedding 模型配置
+# 使用 ChromaDB 内置的 all-MiniLM-L6-v2（首次自动下载，支持中文短文本）
+EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+
+# LLM 配置（使用 ModelScope 免费 API）
+# 获取方式：https://modelscope.cn → 右上角头像 → Access Token
+LLM_API_BASE = "https://api-inference.modelscope.cn/v1"
+LLM_API_KEY = os.environ.get("MODELSCOPE_API_KEY", "")
+LLM_MODEL = "Qwen/Qwen3-8B"  # 免费模型，效果不错
+
+
+# Web 界面配置
+WEB_HOST = "0.0.0.0"
+WEB_PORT = 5679  # 避免和 n8n 的 5678 冲突
+
+# 检索配置
+TOP_K = 5  # 检索最相关的 5 条记录
+MAX_CONTEXT_LENGTH = 2000  # 上下文最大 token 数
+
+# ===== 检索管线升级配置（2026-09-11）=====
+# 设计原则：**分数量纲显式化** —— score 在管线里被反复覆盖，每覆盖一次量纲就换一次，
+# 阈值必须按量纲分开配，禁止跨量纲比较。各段量纲与本库实测/设计值：
+#   vector_sim : 1/(1+distance)，0~1（MiniLM 是英文模型，对中文区分度差，
+#                相关片段经验值 0.46~0.77，无关片段也常落在 0.5~0.6 —— 不可全信）
+#   bm25       : BM25 原始分，无上界 → 只记录名次，不设阈值（与 0~1 量纲不可比）
+#   rrf        : 名次融合分，约 1/(RRF_K+rank)，只表名次先后 → 不设阈值
+#   rerank     : 启发式复合分，0~1.x，非校准概率 → 只记录，不设阈值
+# 总开关：off 时 rag_engine_v2 回退到升级前行为（供评测跑基线用）。
+RAG_V2_UPGRADES = os.environ.get("RAG_V2_UPGRADES", "on") != "off"
+# 向量兜底通道的相似度阈值，0 = 不过滤只记录。等评测数据出来再定非零默认值，
+# 现在拍脑袋设 0.5 之类会把兜底通道整个杀掉（无关片段与相关片段区间重叠严重）。
+VECTOR_SIM_THRESHOLD = float(os.environ.get("RAG_VECTOR_SIM_THRESHOLD", "0"))
+
+# BM25 / RRF 参数
+BM25_K1 = 1.5
+BM25_B = 0.75
+RRF_K = 60  # 经典取值：名次第 1 名 ≈ 1/61，两路同时命中 ≈ 2/61
+
+# 无实体命中时词法兜底二选一：
+#   True  = BM25 接管兜底（真实语料下通常优于向量）
+#   False = 维持向量兜底（当前默认，实测依据见下）
+# 实测（2026-09-11 _rag_eval E 类）：本库是**合成语料**，20 份行业研报共享同一套
+# 模板词表 —— 「锂电池」「银行业」「家电」在每个行业研报里都出现，BM25 对它们
+# 无区分度（三个不同行业问法返回同一批研报，E01 召回 1.00 → 0.00）；
+# 而向量兜底反而把电力设备研报排对第一。语料换成真实研报后再把此项打开。
+BM25_AS_FALLBACK = os.environ.get("RAG_BM25_AS_FALLBACK", "off") == "on"
+
+# 父子分块：命中下列类型的子块后，回填**整个父文档**给模型生成（小块用来找，大块用来答）。
+# 研报块的父文档 = 同 title 的全部 chunk（入库时带 title+chunk 元数据，无需重新入库）。
+# 结构化块（overview/financial/stock）本身是原子块，不参与回填。
+PARENT_EXPAND_TYPES = ("research_report",)
+PARENT_MAX_CHARS = 1800  # 单个父文档回填的字符上限（防单篇研报吃光上下文预算）

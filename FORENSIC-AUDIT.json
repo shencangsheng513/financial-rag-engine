@@ -1,0 +1,38 @@
+{
+  "project_name": "rag-finance-qa",
+  "path": "D:/ML_Projects/rag-finance-qa",
+  "audit_timestamp": "2026-11-09 22:36:00",
+  "delivery_level": "待修正",
+  "evidence_verified": true,
+  "metrics": {
+    "scanned_files": 139,
+    "python_files": 36,
+    "json_files": 16,
+    "syntax_errors": 1
+  },
+  "syntax_errors": [
+    {
+      "file": "tools/bge_meta.json",
+      "type": "JSON Syntax Error",
+      "msg": "Expecting value: line 1 column 1 (char 0)"
+    }
+  ],
+  "integrity_fingerprints": {
+    ".dockerignore": "573966fc53a53f5356b1cac5b7c9d0fbde15a532082c5de75a6dfd9a9925b1d8",
+    ".env": "6304e38fa7f0d60a827a52eeba15c7618fdb40e5b1f62a0cde95acf25b080fe2",
+    ".gitignore": "5c59d53a333f50887fdc7a279d4b4c30db27744dcc50c7c166e24f90ec59e43a",
+    "AGENTS.md": "0d0649aad82ea043a6175506f220bdbd43f9d01af662b1432168423fd501f387",
+    "config.py": "891b6199c7ec91bfd491417d19f260231b5b4e117ea030c272f3bbc6cc5cf8c3",
+    "config.py.bak": "d90400722d34e44f22c1c171de46b5aaa4a5e4e9477ede7c7c8710c53fc248a4",
+    "config.py.bak-20260913": "87bdcf0e96a9303c74850d511f85d8e21970d2c947685a457a2e10c5a34e8b10",
+    "config.py.bak-20260925": "9d2e0c9a99e875f1b83b53adc0eb27793bc4a09e0a4ba266bf5a4d73aa406047",
+    "Dockerfile": "a0c15ffce6c835016f65f4b74545342c19da4492922d865298c1dd5f205d57d0",
+    "README.md": "ed43c963839fe46159c71a7b2b89df76e5f66789c2daf9992c22d3fc322e296a",
+    "requirements.txt": "e2db6c9db785f843916afbd9f0910dfe0bb7e956a3fa07a5b7d1f294843d5d7e",
+    "setup_api.py": "10093abe2dc582c771f89b91c8b6411f41c6a77d78076be444e46a9069f03018",
+    "_mock_rag.py": "acce86ca7ae7abbe297bd4631c08e7a6f96a88b4f5e3b9403bb9838828d904e2",
+    "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/financial_concepts.json": "fef10201ee70b8c49d7c87233c360345df5234bbf4a39cd41431fc9bcbb56a6e"
+  },
+  "verifier": "Antigravity-BatchForensics/1.0"
+}

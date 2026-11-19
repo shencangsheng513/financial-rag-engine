@@ -1,0 +1,32 @@
+# 2026-09-10 新增：阻止敏感/大体积文件进镜像（同源问题已在 quant-platform 暴露）
+# 敏感与密钥（Critical）
+*.bak
+*.old
+*.orig
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python 缓存与构建产物
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# 运行时数据（容器启动后生成，不该固化进镜像）
+logs/
+data/
+models/
+chroma_db/
+*.pkl
+*.db
+*.log
+
+# 版本控制
+.git/
+.gitignore
+.idea/
+.vscode/
